@@ -78,7 +78,6 @@ class Enemy {
             }
             if(this.health < 0){
                 enemies.splice(enemies.indexOf(this),1);
-                colorrestored+= 0.005;
                 for(var e of enemies){
                     e.draw();
                 }
@@ -86,15 +85,12 @@ class Enemy {
             }
         }
         if(getDistance(this.x,this.y,player.x,player.y) < this.w / 2 + 25){
-            if(iframes < 1){
             health -= this.damage;
-            iframes = 10;
             if(health < 1){
                 health = 0;
                 
                 noLoop();
             }
-        }
         }
     }
     move(){
@@ -283,250 +279,34 @@ class Sword {
 var colorrestored = 0;
 var player = new Player(350, 350);
 var sword = new Sword(3, 4, 3, 10);
-var enemies = [new Enemy(2,1,200,200,50,50), new Enemy(2,1,100,200,50,50)];
-var health = 50;
-var maxhealth = 50;
-var iframes = 0;
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
+var enemies = [];
+var health = 10;
+var maxhealth = 10;
+var wave = 1;
+var cardpng;
 
 
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
+function spawnWaveEnemies(){
+    for(var i = 0; i < wave * 10; i++){
+        enemies.push(new Enemy(0.01,1,Math.random()*700,Math.random() * 700,50,50)) 
+    }
+}
 
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
-
-
+function preload(){
+    cardpng = loadImage("img/card.png")
+}
 function setup() {
     createCanvas(700, 700);
+    spawnWaveEnemies();
 }
 
 function draw() {
-    iframes--;
-    // enemies.push(new Enemy(2,1,Math.random()*700,Math.random() * 700,50,50))
+    if(enemies.length == 0){
+        wave++;
+        health = maxhealth;
+        colorrestored += 0.05;
+        spawnWaveEnemies();
+    }
     background(220)
     player.draw();
     sword.draw();
@@ -575,8 +355,13 @@ function draw() {
     fill("black");
     noStroke();
     rect(360,20,320,50)
-    fill("red")
+    fill(80 + 175 * colorrestored,80 - 80 * colorrestored,80 - 80 * colorrestored)
     rect(360,20,(health/maxhealth) * 320,50)
+    fill("white");
+    textSize(40);
+    textAlign(CENTER)
+    textStyle(BOLD)
+    text("Wave "+ wave,0,80,700);
 }
 
 var register = {};
